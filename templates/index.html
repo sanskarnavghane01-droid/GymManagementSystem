@@ -737,7 +737,7 @@
         <a href="#plans">Plans</a>
         <a href="#trainers">Trainers</a>
         <a href="#schedule">Schedule</a>
-        <a href="#contact" class="btn btn-primary">Get Started</a>
+        <a href="{% url 'member_login' %}" class="btn btn-primary">Get Started</a>
       </nav>
       <div class="mobile-menu" onclick="toggleMobileNav()">
         <span></span><span></span><span></span>
@@ -751,7 +751,7 @@
     <a href="#plans" onclick="toggleMobileNav()">Plans</a>
     <a href="#trainers" onclick="toggleMobileNav()">Trainers</a>
     <a href="#schedule" onclick="toggleMobileNav()">Schedule</a>
-    <a href="#contact" class="btn btn-primary mt-1" onclick="toggleMobileNav()">Get Started</a>
+    <a href="{% url 'member_login' %}" class="btn btn-primary mt-1" onclick="toggleMobileNav()">Get Started</a>
   </div>
 
   <section class="hero">
@@ -761,7 +761,7 @@
         <h1>Train Smarter.<br><span class="accent">Manage Better.</span></h1>
         <p>The complete gym management platform built for modern fitness businesses. Members, trainers, payments, attendance, and analytics — all in one place.</p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Start Free Trial</a>
+          <a href="{% url 'member_login' %}" class="btn btn-primary">Start Free Trial</a>
           <a href="#features" class="btn btn-secondary">Explore Features</a>
         </div>
       </div>
@@ -1102,8 +1102,8 @@
         <h2>Ready to power up your gym?</h2>
         <p>Join hundreds of fitness businesses using IronPulse to manage members, trainers, payments, and growth.</p>
         <div class="flex justify-center gap-1 wrap">
-          <a href="#" class="btn btn-primary">Start Free Trial</a>
-          <a href="#" class="btn btn-secondary">Schedule Demo</a>
+          <a href="{% url 'member_login' %}" class="btn btn-primary">Start Free Trial</a>
+          <a href="{% url 'member_login' %}" class="btn btn-secondary">Schedule Demo</a>
         </div>
       </div>
     </div>
