@@ -1,0 +1,17 @@
+# Virtual Environment
+gymenv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Django
+db.sqlite3
+media/
+
+# VS Code
+.vscode/
+
+# Environment variables
+.env
