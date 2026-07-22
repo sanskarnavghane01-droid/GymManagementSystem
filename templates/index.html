@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+{% block title %}FlexCore — Modern Gym Management System{% endblock %}
+{% block meta_description %}FlexCore is an all-in-one gym management system for members, trainers, memberships, attendance, and reports.{% endblock %}
+
+{% block content %}
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg fixed-top py-3" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="#home">
+      <span class="brand-mark">F</span> FlexCore
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="text-light"><i class="fa-solid fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#stats">Impact</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+      <div class="d-flex gap-2">
+        <a href="{% url '/login/' %}" class="btn btn-ghost">Login</a>
+        <a href="{% url '/login/' %}" class="btn btn-primary-grad">Get Started <i class="fa-solid fa-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="home">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 reveal">
+        <span class="eyebrow mb-3"><i class="fa-solid fa-bolt me-1 text-warning"></i> All-in-one gym operations platform</span>
+        <h1 class="mt-3">Run a smarter gym with <span class="grad-text">FlexCore</span>.</h1>
+        <p class="lead mt-3">Manage members, trainers, payments, and attendance in one modern dashboard — built for boutique studios and full-scale fitness chains.</p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a href="#features" class="btn btn-primary-grad">Explore features <i class="fa-solid fa-arrow-right ms-1"></i></a>
+          <a href="#contact" class="btn btn-ghost"><i class="fa-solid fa-play me-1"></i> Book a demo</a>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-4">
+          <div class="stat-chip"><i class="fa-solid fa-shield-halved"></i> Role-based access</div>
+          <div class="stat-chip"><i class="fa-solid fa-bolt"></i> Real-time reports</div>
+          <div class="stat-chip"><i class="fa-solid fa-mobile-screen"></i> Fully responsive</div>
+        </div>
+      </div>
+      <div class="col-lg-6 reveal">
+        <div class="hero-visual">
+          <div class="mock">
+            <div class="mock-top"><span></span><span></span><span></span></div>
+            <div class="mock-body">
+              <aside class="mock-side">
+                <div class="item active"><i class="fa-solid fa-gauge-high"></i> Dashboard</div>
+                <div class="item"><i class="fa-solid fa-users"></i> Members</div>
+                <div class="item"><i class="fa-solid fa-dumbbell"></i> Trainers</div>
+                <div class="item"><i class="fa-solid fa-id-card"></i> Memberships</div>
+                <div class="item"><i class="fa-solid fa-calendar-check"></i> Attendance</div>
+                <div class="item"><i class="fa-solid fa-chart-line"></i> Reports</div>
+              </aside>
+              <div class="mock-main">
+                <div class="mock-card"><div class="k">Members</div><div class="v">2,438</div></div>
+                <div class="mock-card"><div class="k">Trainers</div><div class="v">86</div></div>
+                <div class="mock-card"><div class="k">Revenue</div><div class="v">$48.2K</div></div>
+                <div class="mock-chart">
+                  <svg viewBox="0 0 400 130" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0" stop-color="#f97316" stop-opacity=".6"/>
+                        <stop offset="1" stop-color="#f97316" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,90 C40,70 70,100 110,80 C150,60 180,30 220,45 C260,60 290,20 330,35 C370,50 390,30 400,25 L400,130 L0,130 Z" fill="url(#g)"/>
+                    <path d="M0,90 C40,70 70,100 110,80 C150,60 180,30 220,45 C260,60 290,20 330,35 C370,50 390,30 400,25" fill="none" stroke="#f97316" stroke-width="2"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="eyebrow">Features</span>
+      <h2 class="display-5 fw-bold mt-3">Everything you need to <span class="grad-text">operate</span> a modern gym</h2>
+      <p class="text-muted-2 col-lg-7 mx-auto mt-3">A single system that replaces spreadsheets, sticky notes, and a dozen disconnected tools.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-user-shield"></i></div>
+          <h5>Authentication & Role-Based Access</h5>
+          <p>Secure logins for admins, trainers, and members with fine-grained permissions and audit trails.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+          <h5>Member Management</h5>
+          <p>Onboard members in seconds. Track profiles, goals, plans, and complete history in one place.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-dumbbell"></i></div>
+          <h5>Trainer & Workout Management</h5>
+          <p>Assign trainers, build workout plans, and monitor member progress with rich analytics.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-credit-card"></i></div>
+          <h5>Membership & Payments</h5>
+          <p>Flexible plans, auto-renewals, invoicing, and multi-method payments with clear billing history.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <h5>Attendance Management</h5>
+          <p>Check-ins via QR or biometrics, real-time occupancy, and no-show alerts for retention.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h5>Reports & Dashboard</h5>
+          <p>Live KPIs on revenue, retention, and utilization — export insights in one click.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+  <div class="container py-5">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3 reveal"><div class="stat"><div class="num" data-count="12500">0</div><div class="lbl">Active Members</div></div></div>
+      <div class="col-6 col-md-3 reveal"><div class="stat"><div class="num" data-count="480">0</div><div class="lbl">Certified Trainers</div></div></div>
+      <div class="col-6 col-md-3 reveal"><div class="stat"><div class="num" data-count="98" data-suffix="%">0</div><div class="lbl">Retention Rate</div></div></div>
+      <div class="col-6 col-md-3 reveal"><div class="stat"><div class="num" data-count="2400000" data-prefix="$">0</div><div class="lbl">Revenue Processed</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6 reveal">
+        <span class="eyebrow">About FlexCore</span>
+        <h2 class="display-5 fw-bold mt-3">Built for gyms that want to <span class="grad-text">scale without chaos</span>.</h2>
+        <p class="text-muted-2 mt-3">FlexCore is a full-featured Gym Management System designed to replace fragmented spreadsheets and legacy software. Owners get visibility, trainers get tools, and members get an experience that keeps them coming back.</p>
+        <p class="text-muted-2">From a single studio to a nationwide chain, FlexCore streamlines every operational touchpoint — from the first sign-up to the monthly financial report.</p>
+        <a href="#contact" class="btn btn-primary-grad mt-2">Talk to the team <i class="fa-solid fa-arrow-right ms-1"></i></a>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-sm-6 reveal"><div class="about-card"><i class="fa-solid fa-circle-check"></i><div><h6 class="mb-1">Modular architecture</h6><small class="text-muted-2">Enable only the modules your gym needs.</small></div></div></div>
+          <div class="col-sm-6 reveal"><div class="about-card"><i class="fa-solid fa-circle-check"></i><div><h6 class="mb-1">Cloud-ready</h6><small class="text-muted-2">Deploy on any host with zero lock-in.</small></div></div></div>
+          <div class="col-sm-6 reveal"><div class="about-card"><i class="fa-solid fa-circle-check"></i><div><h6 class="mb-1">Data-first</h6><small class="text-muted-2">Every action becomes an actionable insight.</small></div></div></div>
+          <div class="col-sm-6 reveal"><div class="about-card"><i class="fa-solid fa-circle-check"></i><div><h6 class="mb-1">Member-focused</h6><small class="text-muted-2">Beautiful portal that members actually use.</small></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="eyebrow">Contact</span>
+      <h2 class="display-5 fw-bold mt-3">Let's <span class="grad-text">get in touch</span></h2>
+      <p class="text-muted-2 mt-3">Questions, demos, or partnership — we usually reply within a day.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-5 reveal">
+        <div class="contact-info">
+          <div class="row-info">
+            <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div><h6 class="mb-1">Office</h6><small class="text-muted-2">42 Fitness Avenue, Bengaluru, India</small></div>
+          </div>
+          <div class="row-info">
+            <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+            <div><h6 class="mb-1">Email</h6><small class="text-muted-2">hello@flexcore.app</small></div>
+          </div>
+          <div class="row-info">
+            <div class="icon"><i class="fa-solid fa-phone"></i></div>
+            <div><h6 class="mb-1">Phone</h6><small class="text-muted-2">+91 98765 43210</small></div>
+          </div>
+          <div class="row-info">
+            <div class="icon"><i class="fa-solid fa-clock"></i></div>
+            <div><h6 class="mb-1">Support</h6><small class="text-muted-2">Mon – Sat, 9:00 to 20:00 IST</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7 reveal">
+        <form class="contact-info" onsubmit="event.preventDefault();alert('Thanks! We will get back to you shortly.');this.reset();">
+          <div class="row g-3">
+            <div class="col-md-6"><input required class="form-control" placeholder="Full name"/></div>
+            <div class="col-md-6"><input required type="email" class="form-control" placeholder="Email address"/></div>
+            <div class="col-md-6"><input class="form-control" placeholder="Gym / Company"/></div>
+            <div class="col-md-6"><input class="form-control" placeholder="Phone (optional)"/></div>
+            <div class="col-12"><textarea required rows="5" class="form-control" placeholder="How can we help?"></textarea></div>
+            <div class="col-12 d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <small class="text-muted-2"><i class="fa-solid fa-lock me-1"></i> Your information stays private.</small>
+              <button class="btn btn-primary-grad">Send message <i class="fa-solid fa-paper-plane ms-1"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <a class="navbar-brand mb-3" href="#home"><span class="brand-mark">F</span> FlexCore</a>
+        <p class="mt-3">A modern Gym Management System that unifies members, trainers, memberships, attendance, and reporting in one calm, powerful dashboard.</p>
+        <div class="social mt-3">
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 col-lg-2 offset-lg-1">
+        <h6>Product</h6>
+        <a href="#features">Features</a>
+        <a href="#stats">Impact</a>
+        <a href="#tech">Tech Stack</a>
+        <a href="#contact">Pricing</a>
+      </div>
+      <div class="col-6 col-md-3 col-lg-2">
+        <h6>Company</h6>
+        <a href="#about">About</a>
+        <a href="#contact">Careers</a>
+        <a href="#contact">Contact</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <h6>Newsletter</h6>
+        <p>Monthly product updates. No spam, ever.</p>
+        <form class="d-flex gap-2" onsubmit="event.preventDefault();this.reset();alert('Subscribed!')">
+          <input type="email" required class="form-control" placeholder="you@gym.com"/>
+          <button class="btn btn-primary-grad"><i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span id="yr"></span> FlexCore Gym Management System. All rights reserved.</div>
+      <div><a href="#" class="d-inline">Privacy</a> · <a href="#" class="d-inline">Terms</a> · <a href="#" class="d-inline">Security</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const nav = document.getElementById('mainNav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Animated counters
+  const countIO = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target, target=+el.dataset.count, pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
+    let cur=0, step=Math.max(1,Math.floor(target/60));
+    const tick=()=>{cur+=step; if(cur>=target){cur=target;} el.textContent=pre+cur.toLocaleString()+suf; if(cur<target) requestAnimationFrame(tick);};
+    tick(); countIO.unobserve(el);
+  }),{threshold:.4});
+  document.querySelectorAll('[data-count]').forEach(el=>countIO.observe(el));
+
+  // Close mobile nav on link click
+  document.querySelectorAll('#navMenu .nav-link, #navMenu .btn').forEach(a=>a.addEventListener('click',()=>{
+    const c=document.getElementById('navMenu'); if(c.classList.contains('show')) new bootstrap.Collapse(c).hide();
+  }));
+</script>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const nav = document.getElementById('mainNav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
+
+  const io = new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const countIO = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target, target=+el.dataset.count, pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
+    let cur=0, step=Math.max(1,Math.floor(target/60));
+    const tick=()=>{cur+=step; if(cur>=target){cur=target;} el.textContent=pre+cur.toLocaleString()+suf; if(cur<target) requestAnimationFrame(tick);};
+    tick(); countIO.unobserve(el);
+  }),{threshold:.4});
+  document.querySelectorAll('[data-count]').forEach(el=>countIO.observe(el));
+
+  document.querySelectorAll('#navMenu .nav-link, #navMenu .btn').forEach(a=>a.addEventListener('click',()=>{
+    const c=document.getElementById('navMenu'); if(c.classList.contains('show')) new bootstrap.Collapse(c).hide();
+  }));
+</script>
+{% endblock %}
+

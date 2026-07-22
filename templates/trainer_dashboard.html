@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Trainer Dashboard{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1>Trainer Dashboard</h1>
+  <p>Welcome, {{ request.user.get_full_name|default:request.user.username }} — you are signed in as Trainer.</p>
+  <a href="{% url 'logout' %}" class="btn btn-ghost">Sign out</a>
+</div>
+{% endblock %}
