@@ -1,6 +1,10 @@
 from django.db import models
 
 
+
+
+
+#membership plan model
 class MembershipPlan(models.Model):
     plan_name = models.CharField(max_length=50)
     duration_days = models.IntegerField()
@@ -10,6 +14,9 @@ class MembershipPlan(models.Model):
         return self.plan_name
 
 
+
+
+#member model
 class Member(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -40,6 +47,9 @@ class Member(models.Model):
         return self.name
 
 
+
+    
+#payment model
 class Payment(models.Model):
     PAYMENT_METHODS = [
         ("Cash", "Cash"),
@@ -90,3 +100,8 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.member.name} - {self.amount}"
+
+
+
+
+#trainer model
