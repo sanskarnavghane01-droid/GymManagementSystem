@@ -16,6 +16,10 @@ def login_view(request):
         identifier = request.POST.get('email', '').strip()
         password = request.POST.get('password', '')
         is_trainer = request.POST.get('is_trainer') == 'on'
+        next_url = request.POST.get('next', '').strip()
+
+        if next_url and not next_url.startswith('/'):
+            next_url = ''
 
         user = None
         # Try to find by email first
@@ -46,6 +50,8 @@ def login_view(request):
             if user.is_superuser or user.groups.filter(name='Admin').exists():
                 return redirect('/admin/')
             if user.groups.filter(name='Member').exists() or not user.is_staff:
+                if next_url:
+                    return redirect(next_url)
                 return redirect('member_dashboard')
             if user.groups.filter(name='Trainer').exists():
                 return redirect('trainer_dashboard')
@@ -55,7 +61,7 @@ def login_view(request):
         else:
             messages.error(request, 'Invalid credentials. Please try again.')
 
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'next_url': request.GET.get('next', '').strip()})
 
 
 def logout_view(request):

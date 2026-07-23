@@ -120,6 +120,10 @@
           <input id="password" name="password" type="password" placeholder="Enter your password" required />
         </div>
 
+        {% if next_url %}
+          <input type="hidden" name="next" value="{{ next_url }}" />
+        {% endif %}
+
         <div class="options">
           <label style="display:flex; align-items:center; gap:0.45rem;">
             <input type="checkbox" style="accent-color: var(--primary);" />
