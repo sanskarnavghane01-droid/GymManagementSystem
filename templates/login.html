@@ -133,11 +133,23 @@
         </div>
 
         <div style="margin: -0.25rem 0 1.1rem;">
-          <label style="display:flex; align-items:center; gap:0.45rem; font-size:0.9rem; color:var(--primary); font-weight:700; letter-spacing:0.01em;">
-            <input type="checkbox" name="is_trainer" style="accent-color: var(--primary);" />
-            Trainer
+          <label id="trainer-label" style="display:flex; align-items:center; gap:0.45rem; font-size:0.9rem; color:var(--primary); font-weight:700; letter-spacing:0.01em; cursor:pointer;">
+            <input id="is_trainer_checkbox" type="checkbox" name="is_trainer" style="accent-color: var(--primary);" />
+            <span style="margin-left:6px">Trainer</span>
           </label>
         </div>
+        <script>
+          // Make the label area clickable and redirect to trainer registration when the text is clicked while keeping checkbox behavior when clicked on checkbox
+          document.addEventListener('DOMContentLoaded', function(){
+            const label = document.getElementById('trainer-label');
+            const checkbox = document.getElementById('is_trainer_checkbox');
+            label.addEventListener('click', function(e){
+              if (e.target === checkbox) return; // allow normal checkbox toggle
+              // if user clicks the label text, toggle checkbox
+              checkbox.checked = !checkbox.checked;
+            });
+          });
+        </script>
 
         {% if request.POST.is_trainer %}
           <div style="margin-bottom: 1rem; color: var(--accent); font-size: 0.9rem; font-weight: 600;">
@@ -154,6 +166,9 @@
 
       <div class="secondary-link">
         New member? <a href="#">Create account</a>
+      </div>
+      <div class="secondary-link">
+        create trainer account? <a href="{% url 'trainer_register' %}">create trainer account</a>
       </div>
       <div class="secondary-link">
         <a href="/">← Back to home</a>

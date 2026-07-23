@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 #trainer model
@@ -7,6 +8,7 @@ from django.db import models
 
 
 class Trainer(models.Model):
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE, related_name='trainer_profile')
     GENDER_CHOICES = [
         ("Male", "Male"),
         ("Female", "Female"),

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Trainer Registered{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card bg-dark p-4 text-light" style="border:1px solid var(--border);">
+        <h3 class="mb-3 text-white">Registration Complete</h3>
+        <p class="text-light">Your trainer account was created successfully.</p>
+        <div class="mt-3">
+          <p class="text-light"><strong>Your Trainer ID:</strong> <span class="badge bg-light text-dark">{{ trainer_id }}</span></p>
+          <p class="text-light"><strong>Password:</strong> <span class="badge bg-light text-dark">(the password you entered)</span></p>
+          <p class="text-light small">Use the Trainer ID above to sign in on the login page and check the 'Trainer' option.</p>
+        </div>
+        <div class="mt-3 d-flex gap-2">
+          <a href="/login/" class="btn btn-primary-grad">Go to Login</a>
+          <a href="/trainer/register/" class="btn btn-ghost">Register another</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -26,5 +26,25 @@ class LoginRedirectTests(TestCase):
 
         self.assertRedirects(response, reverse('trainer_dashboard'))
 
+    def test_trainer_login_redirects_to_dashboard_without_checkbox(self):
+        trainer_group = Group.objects.create(name='Trainer')
+        user = User.objects.create_user(
+            username='trainer2',
+            email='trainer2@example.com',
+            password='strong-password-123',
+        )
+        user.groups.add(trainer_group)
+
+        response = self.client.post(
+            reverse('login'),
+            {
+                'email': 'trainer2@example.com',
+                'password': 'strong-password-123',
+            },
+            follow=False,
+        )
+
+        self.assertRedirects(response, reverse('trainer_dashboard'))
+
 
 # Create your tests here.

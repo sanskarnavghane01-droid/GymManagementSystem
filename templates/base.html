@@ -191,9 +191,12 @@
 </head>
 <body>
   {% if messages %}
-  <div style="position:fixed; right:20px; top:20px; z-index:9999; min-width:240px;">
+  <div style="position:fixed; right:20px; top:20px; z-index:9999; min-width:260px;">
     {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}" role="alert" style="margin-bottom:6px;">{{ message }}</div>
+      <div class="alert alert-{{ message.tags }} d-flex align-items-start justify-content-between gap-2" role="alert" style="margin-bottom:6px; padding-right:0.9rem;">
+        <span>{{ message }}</span>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="this.parentElement.remove()"></button>
+      </div>
     {% endfor %}
   </div>
   {% endif %}

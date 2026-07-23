@@ -5,6 +5,57 @@ from django.contrib.auth.models import User, Group
 from django.contrib import messages
 from .forms import TrainerForm
 from .models import Trainer
+from .forms import TrainerRegistrationForm
+import random
+from django.utils import timezone
+
+def ensure_trainer_group():
+    group, created = Group.objects.get_or_create(name='Trainer')
+    return group
+
+
+def trainer_register(request):
+    if request.method == 'POST':
+        form = TrainerRegistrationForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data['password1']
+            email = form.cleaned_data.get('email')
+            full_name = form.cleaned_data.get('full_name')
+            phone = form.cleaned_data.get('phone')
+            specialization = form.cleaned_data.get('specialization') or ''
+            experience = form.cleaned_data.get('experience') or 0
+            joining_date = form.cleaned_data.get('joining_date') or timezone.now().date()
+
+            # Generate a unique numeric Trainer ID (6 digits)
+            for _ in range(100):
+                candidate = str(random.randint(100000, 999999))
+                if not User.objects.filter(username=candidate).exists():
+                    username = candidate
+                    break
+            else:
+                messages.error(request, 'Failed to generate a unique Trainer ID. Please try again.')
+                return render(request, 'trainer_register.html', {'form': form})
+
+            user = User.objects.create_user(username=username, password=password, email=email)
+            group = ensure_trainer_group()
+            user.groups.add(group)
+
+            trainer = Trainer.objects.create(
+                user=user,
+                full_name=full_name,
+                email=email,
+                phone=phone,
+                specialization=specialization,
+                experience=experience,
+                joining_date=joining_date,
+            )
+
+            # Show the assigned Trainer ID on a confirmation page
+            return render(request, 'trainer_registered.html', {'trainer_id': username, 'password': password})
+    else:
+        form = TrainerRegistrationForm()
+
+    return render(request, 'trainer_register.html', {'form': form})
 
 
 # Admins are redirected to the built-in Django admin site; no separate admin dashboard view.

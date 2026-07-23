@@ -48,12 +48,12 @@ def login_view(request):
 
             if user.is_superuser or user.groups.filter(name='Admin').exists():
                 return redirect('/admin/')
+            if user.groups.filter(name='Trainer').exists():
+                return redirect('trainer_dashboard')
             if user.groups.filter(name='Member').exists() or not user.is_staff:
                 if next_url:
                     return redirect(next_url)
                 return redirect('member_dashboard')
-            if user.groups.filter(name='Trainer').exists():
-                return redirect('trainer_dashboard')
 
             messages.error(request, 'No member account exists for these credentials.')
             return redirect('login')

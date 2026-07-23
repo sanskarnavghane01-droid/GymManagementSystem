@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Trainer Registration{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card bg-dark p-4" style="border:1px solid var(--border);">
+        <style>
+          .card .form-label { color: #ffffff !important; }
+        </style>
+        <h3 class="mb-3">Trainer Registration</h3>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          <p class="text-muted-2 small">A unique numeric Trainer ID will be generated for you after registration and shown on the confirmation page.</p>
+          <div class="mb-2">
+            <label class="form-label">Password</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Confirm Password</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Full name</label>
+            {{ form.full_name }}
+            {{ form.full_name.errors }}
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Email</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Phone</label>
+            {{ form.phone }}
+            {{ form.phone.errors }}
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Specialization</label>
+            {{ form.specialization }}
+            {{ form.specialization.errors }}
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Experience (years)</label>
+            {{ form.experience }}
+            {{ form.experience.errors }}
+          </div>
+          <div class="mb-3 d-flex gap-2">
+            <button class="btn btn-primary-grad" type="submit">Register</button>
+            <a href="/login/" class="btn btn-ghost">Back to login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
