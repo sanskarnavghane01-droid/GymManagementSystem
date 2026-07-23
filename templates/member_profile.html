@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Member Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0">
+
+                <!-- Header -->
+                <div class="card-header bg-primary text-white text-center">
+
+                    <h2>
+                        <i class="bi bi-person-circle"></i>
+                        Member Profile
+                    </h2>
+
+                </div>
+
+                <div class="card-body">
+
+                    <!-- Avatar -->
+                    <div class="text-center mb-4">
+
+                        <i class="bi bi-person-circle text-primary"
+                           style="font-size:100px;"></i>
+
+                        <h3 class="mt-3">
+                            {{ member.name }}
+                        </h3>
+
+                        {% if member.membership_status == "Active" %}
+
+                            <span class="badge bg-success fs-6">
+                                Active Member
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger fs-6">
+                                Expired Member
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="fw-bold">
+                                Email
+                            </label>
+
+                            <p class="form-control">
+                                {{ member.email }}
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="fw-bold">
+                                Phone Number
+                            </label>
+
+                            <p class="form-control">
+                                {{ member.phone }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="fw-bold">
+                                Age
+                            </label>
+
+                            <p class="form-control">
+                                {{ member.age }}
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="fw-bold">
+                                Gender
+                            </label>
+
+                            <p class="form-control">
+                                {{ member.gender }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="fw-bold">
+                                Membership Plan
+                            </label>
+
+                            <p class="form-control">
+                                {{ member.membership_plan }}
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="fw-bold">
+                                Membership Status
+                            </label>
+
+                            <p class="form-control">
+                                {{ member.membership_status }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="fw-bold">
+                                Joining Date
+                            </label>
+
+                            <p class="form-control">
+                                {{ member.joining_date }}
+                            </p>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="fw-bold">
+                                Expiry Date
+                            </label>
+
+                            <p class="form-control">
+                                {{ member.expiry_date }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer d-flex justify-content-between">
+
+                    <a href="{% url 'view_members' %}"
+                       class="btn btn-secondary">
+
+                        <i class="bi bi-arrow-left"></i>
+                        Back
+
+                    </a>
+
+                    <a href="{% url 'edit_member' member.id %}"
+                       class="btn btn-warning">
+
+                        <i class="bi bi-pencil-square"></i>
+                        Edit Member
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

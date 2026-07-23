@@ -29,4 +29,12 @@ urlpatterns = [
 
     path('trainer-dashboard/', views.trainer_dashboard, name='trainer_dashboard'),
     path('member-dashboard/', views.member_dashboard, name='member_dashboard'),
+
+    #changed by youu->
+    path('members/', views.view_members, name='view_members'),
+    path('add-member/', views.add_member, name='add_member'),
+    path('edit-member/<int:id>/', views.edit_member, name='edit_member'),
+    path('delete-member/<int:id>/', views.delete_member, name='delete_member'),
+    path('member/<int:id>/', views.member_profile, name='member_profile'),
+    path('member-stats/', views.member_stats, name='member_stats'),
 ]
