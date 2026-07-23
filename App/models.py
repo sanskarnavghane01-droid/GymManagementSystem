@@ -90,3 +90,28 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.member.name} - {self.amount}"
+
+
+class Attendance(models.Model):
+    member = models.ForeignKey(
+        Member,
+        on_delete=models.CASCADE
+    )
+
+    attendence_date = models.DateField()
+    check_in_time = models.TimeField()
+    check_out_time = models.TimeField(blank=True, null=True)
+
+    STATUS = [
+        ("Present", "Present"),
+        ("Absent", "Absent"),
+    ]
+
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS,
+        default="Present"
+    )
+
+    def __str__(self):
+        return f"{self.member.name}-{self.attendence_date}"
