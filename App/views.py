@@ -3,10 +3,20 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.contrib import messages
+from .models import Member
 
 
 def home(request):
     return render(request, 'index.html')
+
+def member_list(request):
+    members = Member.objects.all()
+
+    return render(request,'members.html',
+                  {
+                      "members":members
+                  }
+            )
 
 
 def login_view(request):

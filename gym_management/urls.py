@@ -24,9 +24,12 @@ urlpatterns = [
 
     path('', views.home, name='home'),
 
+    path('members/', views.member_list, name="member_list"),
+
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
 
     path('trainer-dashboard/', views.trainer_dashboard, name='trainer_dashboard'),
     path('member-dashboard/', views.member_dashboard, name='member_dashboard'),
+
 ]

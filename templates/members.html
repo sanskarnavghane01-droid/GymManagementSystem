@@ -1,0 +1,166 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}
+Members
+{% endblock %}
+
+{% block page_title %}
+<i class="fa-solid fa-users"></i> Members Management
+{% endblock %}
+
+{% block content %}
+
+<div class="card card-custom shadow-lg">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+                <h3 class="text-white fw-bold display-6 mb-1">
+                <i class="fa-solid fa-users text-warning"></i>Gym Members</h3>
+            </div>
+
+            <a href="#" class="btn btn-warning">
+                <i class="fa-solid fa-user-plus"></i>
+                Add Member
+            </a>
+
+        </div>
+        <div class="row g-4 mb-4">
+
+    <div class="col-md-3">
+        <div class="card card-custom shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-users fa-2x text-warning mb-3"></i>
+                <h6 class="text-secondary">Total Members</h6>
+                <h2 class="stat-number text-white">
+                    {{ members|length }}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-custom shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-circle-check fa-2x text-success mb-3"></i>
+                <h6 class="text-secondary">Active Members</h6>
+                <h2 class="stat-number text-success">1</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-custom shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-circle-xmark fa-2x text-danger mb-3"></i>
+                <h6 class="text-secondary">Expired</h6>
+                <h2 class="stat-number text-danger">0</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-custom shadow-sm h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-indian-rupee-sign fa-2x text-warning mb-3"></i>
+                <h6 class="text-secondary">Revenue</h6>
+                <h2 class="stat-number text-warning">
+                            ₹1000
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+        <div class="mb-4">
+
+            <input
+                type="text"
+                class="form-control"
+                placeholder="🔍 Search Members..."
+            >
+
+        </div>
+
+        <table class="table table-dark table-hover align-middle">
+
+            <thead>
+
+            <tr>
+
+                <th>Name</th>
+
+                <th>Email</th>
+
+                <th>Phone</th>
+
+                <th>Membership</th>
+
+                <th>Status</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for member in members %}
+
+                <tr>
+
+                    <td>{{ member.name }}</td>
+
+                    <td>{{ member.email }}</td>
+
+                    <td>{{ member.phone }}</td>
+
+                    <td>{{ member.membership_plan }}</td>
+
+                    <td>
+
+                        {% if member.membership_status == "Active" %}
+
+                            <span class="badge bg-success">
+                                Active
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                Expired
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
