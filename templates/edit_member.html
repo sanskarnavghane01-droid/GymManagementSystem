@@ -1,29 +1,27 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Add Member
+Edit Member
 {% endblock %}
 
 {% block content %}
 
-<div class="container py-5">
+<div class="container mt-5 mb-5">
 
     <div class="row justify-content-center">
 
         <div class="col-lg-8">
 
-            <div class="card">
+            <div class="card shadow-lg border-0 rounded-4">
 
-                <div class="card-header text-center">
-
-                    <h3>
-                        <i class="bi bi-person-plus-fill"></i>
-                        Add New Member
+                <div class="card-header bg-warning text-dark text-center rounded-top-4">
+                    <h3 class="mb-0">
+                        <i class="bi bi-pencil-square"></i>
+                        Edit Member
                     </h3>
-
                 </div>
 
-                <div class="card-body">
+                <div class="card-body p-4">
 
                     <form method="POST">
 
@@ -33,7 +31,7 @@ Add Member
 
                             <div class="col-md-6 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label fw-bold">
                                     Full Name
                                 </label>
 
@@ -41,13 +39,14 @@ Add Member
                                     type="text"
                                     class="form-control"
                                     name="name"
+                                    value="{{ member.name }}"
                                     required>
 
                             </div>
 
                             <div class="col-md-6 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label fw-bold">
                                     Email
                                 </label>
 
@@ -55,6 +54,7 @@ Add Member
                                     type="email"
                                     class="form-control"
                                     name="email"
+                                    value="{{ member.email }}"
                                     required>
 
                             </div>
@@ -65,7 +65,7 @@ Add Member
 
                             <div class="col-md-6 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label fw-bold">
                                     Phone Number
                                 </label>
 
@@ -73,13 +73,14 @@ Add Member
                                     type="text"
                                     class="form-control"
                                     name="phone"
+                                    value="{{ member.phone }}"
                                     required>
 
                             </div>
 
                             <div class="col-md-3 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label fw-bold">
                                     Age
                                 </label>
 
@@ -87,25 +88,41 @@ Add Member
                                     type="number"
                                     class="form-control"
                                     name="age"
+                                    value="{{ member.age }}"
                                     required>
 
                             </div>
 
                             <div class="col-md-3 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label fw-bold">
                                     Gender
                                 </label>
 
                                 <select
                                     class="form-select"
-                                    name="gender"
-                                    required>
+                                    name="gender">
 
-                                    <option value="">Select</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
+                                    <option value="Male"
+                                        {% if member.gender == "Male" %}
+                                        selected
+                                        {% endif %}>
+                                        Male
+                                    </option>
+
+                                    <option value="Female"
+                                        {% if member.gender == "Female" %}
+                                        selected
+                                        {% endif %}>
+                                        Female
+                                    </option>
+
+                                    <option value="Other"
+                                        {% if member.gender == "Other" %}
+                                        selected
+                                        {% endif %}>
+                                        Other
+                                    </option>
 
                                 </select>
 
@@ -115,21 +132,24 @@ Add Member
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+                            <label class="form-label fw-bold">
                                 Membership Plan
                             </label>
 
                             <select
                                 class="form-select"
-                                name="membership_plan"
-                                required>
-
-                                <option value="">Select Plan</option>
+                                name="membership_plan">
 
                                 {% for plan in plans %}
 
-                                <option value="{{ plan.id }}">
+                                <option
+                                    value="{{ plan.id }}"
+                                    {% if member.membership_plan.id == plan.id %}
+                                    selected
+                                    {% endif %}>
+
                                     {{ plan.name }}
+
                                 </option>
 
                                 {% endfor %}
@@ -142,7 +162,7 @@ Add Member
 
                             <div class="col-md-6 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label fw-bold">
                                     Joining Date
                                 </label>
 
@@ -150,13 +170,14 @@ Add Member
                                     type="date"
                                     class="form-control"
                                     name="joining_date"
+                                    value="{{ member.joining_date|date:'Y-m-d' }}"
                                     required>
 
                             </div>
 
                             <div class="col-md-6 mb-3">
 
-                                <label class="form-label">
+                                <label class="form-label fw-bold">
                                     Expiry Date
                                 </label>
 
@@ -164,33 +185,45 @@ Add Member
                                     type="date"
                                     class="form-control"
                                     name="expiry_date"
+                                    value="{{ member.expiry_date|date:'Y-m-d' }}"
                                     required>
 
                             </div>
 
                         </div>
 
-                        <div class="d-grid gap-2 mt-4">
+                        <div class="mb-4">
+
+                            <label class="form-label fw-bold">
+                                Membership Status
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="{{ member.membership_status }}"
+                                readonly>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+
+                            <a href="{% url 'view_members' %}"
+                               class="btn btn-secondary">
+
+                                <i class="bi bi-arrow-left"></i>
+                                Back
+
+                            </a>
 
                             <button
                                 type="submit"
-                                class="btn btn-primary btn-lg">
+                                class="btn btn-warning">
 
-                                <i class="bi bi-check-circle"></i>
-
-                                Save Member
+                                <i class="bi bi-save"></i>
+                                Update Member
 
                             </button>
-
-                            <a
-                                href="{% url 'view_members' %}"
-                                class="btn btn-secondary">
-
-                                <i class="bi bi-arrow-left"></i>
-
-                                Back to Members
-
-                            </a>
 
                         </div>
 
@@ -206,6 +239,4 @@ Add Member
 
 </div>
 
-    
 {% endblock %}
-    
