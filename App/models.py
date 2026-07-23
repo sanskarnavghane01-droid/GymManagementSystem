@@ -1,5 +1,4 @@
 from django.db import models
-from django.db import models
 
 
 class MembershipPlan(models.Model):
@@ -39,3 +38,55 @@ class Member(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Payment(models.Model):
+    PAYMENT_METHODS = [
+        ("Cash", "Cash"),
+        ("UPI", "UPI"),
+        ("Card", "Card"),
+        ("Net Banking", "Net Banking"),
+    ]
+
+    PAYMENT_STATUSES = [
+        ("Paid", "Paid"),
+        ("Pending", "Pending"),
+        ("Failed", "Failed"),
+    ]
+
+    member = models.ForeignKey(
+        Member,
+        on_delete=models.CASCADE
+    )
+
+    membership_plan = models.ForeignKey(
+        MembershipPlan,
+        on_delete=models.CASCADE
+    )
+
+    amount = models.DecimalField(
+        max_digits=8,
+        decimal_places=2
+    )
+
+    payment_date = models.DateField()
+
+    payment_method = models.CharField(
+        max_length=20,
+        choices=PAYMENT_METHODS
+    )
+
+    payment_status = models.CharField(
+        max_length=10,
+        choices=PAYMENT_STATUSES,
+        default='Paid'
+    )
+
+    transaction_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return f"{self.member.name} - {self.amount}"
