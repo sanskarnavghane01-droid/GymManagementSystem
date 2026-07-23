@@ -2,14 +2,14 @@
 {% block title %}Delete Trainer{% endblock %}
 {% block content %}
 <div class="container py-5">
-  <div class="card border-0 shadow-lg" style="background: #111725;">
-    <div class="card-body p-4">
+  <div class="card border-0 shadow-lg" style="background: linear-gradient(180deg, #111725, #0d1322); border: 1px solid #1f2a44; border-radius: 20px;">
+    <div class="card-body p-4 p-md-5 text-light">
       <h1 class="mb-3">Delete Trainer</h1>
-      <p>Are you sure you want to delete <strong>{{ trainer.full_name }}</strong>?</p>
-      <form method="post">
+      <p class="mb-4" style="color: #f8fafc; font-size: 1rem;">Are you sure you want to delete <strong style="color: #fb923c;">{{ trainer.full_name }}</strong>?</p>
+      <form method="post" class="d-flex flex-wrap gap-2">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Yes, Delete</button>
-        <a href="{% url 'trainer_list' %}" class="btn btn-ghost ms-2">Cancel</a>
+        <a href="{% url 'trainer_list' %}" class="btn btn-ghost">Cancel</a>
       </form>
     </div>
   </div>

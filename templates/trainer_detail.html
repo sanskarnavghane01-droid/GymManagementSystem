@@ -2,21 +2,43 @@
 {% block title %}Trainer Detail{% endblock %}
 {% block content %}
 <div class="container py-5">
-  <div class="card border-0 shadow-lg" style="background: #111725;">
-    <div class="card-body p-4">
-      <h1 class="mb-3">{{ trainer.full_name }}</h1>
-      <p><strong>Email:</strong> {{ trainer.email }}</p>
-      <p><strong>Phone:</strong> {{ trainer.phone }}</p>
-      <p><strong>Gender:</strong> {{ trainer.gender }}</p>
-      <p><strong>Specialization:</strong> {{ trainer.specialization }}</p>
-      <p><strong>Experience:</strong> {{ trainer.experience }} years</p>
-      <p><strong>Joining Date:</strong> {{ trainer.joining_date }}</p>
-      <p><strong>Status:</strong> {{ trainer.status }}</p>
-      <p><strong>Address:</strong> {{ trainer.address }}</p>
+  <div class="card border-0 shadow-lg" style="background: linear-gradient(180deg, #111725, #0d1322); border: 1px solid #1f2a44; border-radius: 20px;">
+    <div class="card-body p-4 p-md-5">
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
+        <div>
+          <h1 class="mb-2">{{ trainer.full_name }}</h1>
+          <p class="text-muted-2 mb-0">Trainer profile overview</p>
+        </div>
+        <span class="badge" style="background: rgba(249,115,22,.16); color: #fb923c; border: 1px solid rgba(249,115,22,.25); padding: .6rem .9rem; border-radius: 999px;">{{ trainer.status }}</span>
+      </div>
 
-      <div class="mt-4">
-        <a href="{% url 'trainer_edit' trainer.pk %}" class="btn btn-warning me-2">Edit</a>
-        <a href="{% url 'trainer_delete' trainer.pk %}" class="btn btn-danger me-2">Delete</a>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="p-3 rounded-3 text-light" style="background: rgba(255,255,255,.06); border: 1px solid #2a3653; color: #f8fafc;"><strong>Email:</strong> {{ trainer.email }}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-3 rounded-3 text-light" style="background: rgba(255,255,255,.06); border: 1px solid #2a3653; color: #f8fafc;"><strong>Phone:</strong> {{ trainer.phone }}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-3 rounded-3 text-light" style="background: rgba(255,255,255,.06); border: 1px solid #2a3653; color: #f8fafc;"><strong>Gender:</strong> {{ trainer.gender }}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-3 rounded-3 text-light" style="background: rgba(255,255,255,.06); border: 1px solid #2a3653; color: #f8fafc;"><strong>Specialization:</strong> {{ trainer.specialization }}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-3 rounded-3 text-light" style="background: rgba(255,255,255,.06); border: 1px solid #2a3653; color: #f8fafc;"><strong>Experience:</strong> {{ trainer.experience }} years</div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-3 rounded-3 text-light" style="background: rgba(255,255,255,.06); border: 1px solid #2a3653; color: #f8fafc;"><strong>Joining Date:</strong> {{ trainer.joining_date }}</div>
+        </div>
+        <div class="col-12">
+          <div class="p-3 rounded-3 text-light" style="background: rgba(255,255,255,.06); border: 1px solid #2a3653; color: #f8fafc;"><strong>Address:</strong> {{ trainer.address }}</div>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex flex-wrap gap-2">
+        <a href="{% url 'trainer_edit' trainer.pk %}" class="btn btn-primary-grad">Edit</a>
+        <a href="{% url 'trainer_delete' trainer.pk %}" class="btn btn-ghost">Delete</a>
         <a href="{% url 'trainer_list' %}" class="btn btn-ghost">Back to List</a>
       </div>
     </div>
