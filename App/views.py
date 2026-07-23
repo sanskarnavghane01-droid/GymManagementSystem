@@ -3,6 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.contrib import messages
+from .models import Member
+from App.models import MembershipPlan
+from django.db.models import Q
+from datetime import date
 
 
 def home(request):
