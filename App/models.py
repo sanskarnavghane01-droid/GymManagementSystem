@@ -1,8 +1,6 @@
 from django.db import models
-
+from App.models import MembershipPlan
 # Create your models here.
-
-
 class Member(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -11,8 +9,8 @@ class Member(models.Model):
     gender = models.CharField(max_length=10)
 
     membership_plan = models.ForeignKey(
-        MembershipPlan,
-        on_delete=models.CASCADE
+    MembershipPlan,
+    on_delete=models.CASCADE
     )
 
     joining_date = models.DateField()
