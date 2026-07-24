@@ -1,242 +1,449 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 
-{% block title %}
-Edit Member
-{% endblock %}
+{% block title %}Edit Member | FlexCore{% endblock %}
 
 {% block content %}
 
-<div class="container mt-5 mb-5">
+<style>
 
-    <div class="row justify-content-center">
+body{
+    background:#0f172a;
+}
 
-        <div class="col-lg-8">
+.edit-section{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:70px 0;
+}
 
-            <div class="card shadow-lg border-0 rounded-4">
+.glass-card{
 
-                <div class="card-header bg-warning text-dark text-center rounded-top-4">
-                    <h3 class="mb-0">
-                        <i class="bi bi-pencil-square"></i>
-                        Edit Member
-                    </h3>
-                </div>
+    background:rgba(255,255,255,.08);
 
-                <div class="card-body p-4">
+    backdrop-filter:blur(18px);
 
-                    <form method="POST">
+    border:1px solid rgba(255,255,255,.12);
 
-                        {% csrf_token %}
+    border-radius:30px;
 
-                        <div class="row">
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.45);
 
-                            <div class="col-md-6 mb-3">
+    overflow:hidden;
 
-                                <label class="form-label fw-bold">
-                                    Full Name
-                                </label>
+}
 
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    name="name"
-                                    value="{{ member.name }}"
-                                    required>
+.card-header-custom{
 
-                            </div>
+    background:linear-gradient(135deg,#f97316,#fb923c);
 
-                            <div class="col-md-6 mb-3">
+    padding:35px;
 
-                                <label class="form-label fw-bold">
-                                    Email
-                                </label>
+    text-align:center;
 
-                                <input
-                                    type="email"
-                                    class="form-control"
-                                    name="email"
-                                    value="{{ member.email }}"
-                                    required>
+}
 
-                            </div>
+.card-header-custom h2{
 
-                        </div>
+    color:white;
 
-                        <div class="row">
+    font-weight:700;
 
-                            <div class="col-md-6 mb-3">
+}
 
-                                <label class="form-label fw-bold">
-                                    Phone Number
-                                </label>
+.card-header-custom p{
 
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    name="phone"
-                                    value="{{ member.phone }}"
-                                    required>
+    color:white;
 
-                            </div>
+    opacity:.85;
 
-                            <div class="col-md-3 mb-3">
+}
 
-                                <label class="form-label fw-bold">
-                                    Age
-                                </label>
+.form-control,
+.form-select{
 
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    name="age"
-                                    value="{{ member.age }}"
-                                    required>
+    background:rgba(255,255,255,.05);
 
-                            </div>
+    border:1px solid rgba(255,255,255,.1);
 
-                            <div class="col-md-3 mb-3">
+    color:white;
 
-                                <label class="form-label fw-bold">
-                                    Gender
-                                </label>
+    border-radius:15px;
 
-                                <select
-                                    class="form-select"
-                                    name="gender">
+    padding:15px;
 
-                                    <option value="Male"
-                                        {% if member.gender == "Male" %}
-                                        selected
-                                        {% endif %}>
-                                        Male
-                                    </option>
+}
 
-                                    <option value="Female"
-                                        {% if member.gender == "Female" %}
-                                        selected
-                                        {% endif %}>
-                                        Female
-                                    </option>
+.form-control:focus,
+.form-select:focus{
 
-                                    <option value="Other"
-                                        {% if member.gender == "Other" %}
-                                        selected
-                                        {% endif %}>
-                                        Other
-                                    </option>
+    background:rgba(255,255,255,.08);
 
-                                </select>
+    color:white;
 
-                            </div>
+    border-color:#f97316;
 
-                        </div>
+    box-shadow:0 0 15px rgba(249,115,22,.4);
 
-                        <div class="mb-3">
+}
 
-                            <label class="form-label fw-bold">
-                                Membership Plan
-                            </label>
+.form-label{
 
-                            <select
-                                class="form-select"
-                                name="membership_plan">
+    color:white;
 
-                                {% for plan in plans %}
+    font-weight:600;
 
-                                <option
-                                    value="{{ plan.id }}"
-                                    {% if member.membership_plan.id == plan.id %}
-                                    selected
-                                    {% endif %}>
+}
 
-                                    {{ plan.name }}
+.btn-save{
 
-                                </option>
+    background:linear-gradient(135deg,#f97316,#fb923c);
 
-                                {% endfor %}
+    border:none;
 
-                            </select>
+    border-radius:15px;
 
-                        </div>
+    padding:14px;
 
-                        <div class="row">
+    color:white;
 
-                            <div class="col-md-6 mb-3">
+    font-weight:600;
 
-                                <label class="form-label fw-bold">
-                                    Joining Date
-                                </label>
+    transition:.3s;
 
-                                <input
-                                    type="date"
-                                    class="form-control"
-                                    name="joining_date"
-                                    value="{{ member.joining_date|date:'Y-m-d' }}"
-                                    required>
+}
 
-                            </div>
+.btn-save:hover{
 
-                            <div class="col-md-6 mb-3">
+    transform:translateY(-3px);
 
-                                <label class="form-label fw-bold">
-                                    Expiry Date
-                                </label>
+    box-shadow:0 10px 25px rgba(249,115,22,.45);
 
-                                <input
-                                    type="date"
-                                    class="form-control"
-                                    name="expiry_date"
-                                    value="{{ member.expiry_date|date:'Y-m-d' }}"
-                                    required>
+}
 
-                            </div>
+.btn-back{
 
-                        </div>
+    border-radius:15px;
 
-                        <div class="mb-4">
+    padding:14px;
 
-                            <label class="form-label fw-bold">
-                                Membership Status
-                            </label>
+}
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="{{ member.membership_status }}"
-                                readonly>
+.profile-circle{
 
-                        </div>
+    width:90px;
 
-                        <div class="d-flex justify-content-between">
+    height:90px;
 
-                            <a href="{% url 'view_members' %}"
-                               class="btn btn-secondary">
+    border-radius:50%;
 
-                                <i class="bi bi-arrow-left"></i>
-                                Back
+    background:rgba(255,255,255,.15);
 
-                            </a>
+    display:flex;
 
-                            <button
-                                type="submit"
-                                class="btn btn-warning">
+    justify-content:center;
 
-                                <i class="bi bi-save"></i>
-                                Update Member
+    align-items:center;
 
-                            </button>
+    margin:auto;
 
-                        </div>
+    font-size:40px;
 
-                    </form>
+    color:white;
 
-                </div>
+    border:2px solid rgba(255,255,255,.15);
 
-            </div>
+}
 
-        </div>
+</style>
 
-    </div>
+<section class="edit-section">
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-10">
+
+<div class="glass-card">
+
+<div class="card-header-custom">
+
+<div class="profile-circle">
+
+<i class="fa-solid fa-user-pen"></i>
 
 </div>
+
+<h2 class="mt-4">
+
+Edit Member
+
+</h2>
+
+<p>
+
+Update member information
+
+</p>
+
+</div>
+
+<div class="card-body p-5">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6 mb-4">
+
+<label class="form-label">
+
+Full Name
+
+</label>
+
+<input
+
+type="text"
+
+name="name"
+
+value="{{ member.name }}"
+
+class="form-control"
+
+required>
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label class="form-label">
+
+Email
+
+</label>
+
+<input
+
+type="email"
+
+name="email"
+
+value="{{ member.email }}"
+
+class="form-control"
+
+required>
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label class="form-label">
+
+Phone Number
+
+</label>
+
+<input
+
+type="text"
+
+name="phone"
+
+value="{{ member.phone }}"
+
+class="form-control"
+
+required>
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label class="form-label">
+
+Age
+
+</label>
+
+<input
+
+type="number"
+
+name="age"
+
+value="{{ member.age }}"
+
+class="form-control">
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label class="form-label">
+
+Gender
+
+</label>
+
+<select
+name="gender"
+class="form-select">
+
+<option {% if member.gender == "Male" %}selected{% endif %}>Male</option>
+
+<option {% if member.gender == "Female" %}selected{% endif %}>Female</option>
+
+<option {% if member.gender == "Other" %}selected{% endif %}>Other</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label class="form-label">
+
+Membership Plan
+
+</label>
+
+<select
+name="membership_plan"
+class="form-select">
+
+{% for plan in plans %}
+
+<option
+value="{{ plan.id }}"
+{% if member.membership_plan.id == plan.id %}selected{% endif %}>
+
+{{ plan.name }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label class="form-label">
+
+Joining Date
+
+</label>
+
+<input
+
+type="date"
+
+name="joining_date"
+
+value="{{ member.joining_date|date:'Y-m-d' }}"
+
+class="form-control">
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label class="form-label">
+
+Expiry Date
+
+</label>
+
+<input
+
+type="date"
+
+name="expiry_date"
+
+value="{{ member.expiry_date|date:'Y-m-d' }}"
+
+class="form-control">
+
+</div>
+
+<div class="col-md-12 mb-4">
+
+<label class="form-label">
+
+Membership Status
+
+</label>
+
+<select
+name="membership_status"
+class="form-select">
+
+<option
+value="Active"
+{% if member.membership_status == "Active" %}selected{% endif %}>
+
+Active
+
+</option>
+
+<option
+value="Expired"
+{% if member.membership_status == "Expired" %}selected{% endif %}>
+
+Expired
+
+</option>
+
+</select>
+
+</div>
+
+<div class="d-flex justify-content-between mt-4">
+
+<a
+href="{% url 'view_members' %}"
+class="btn btn-outline-light btn-back">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</a>
+
+<button
+type="submit"
+class="btn btn-save">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Update Member
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 {% endblock %}

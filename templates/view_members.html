@@ -1,243 +1,701 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}
-View Members
-{% endblock %}
+{% block title %}View Members{% endblock %}
 
 {% block content %}
 
-<div class="container mt-5">
+<style>
 
-    <!-- Page Heading -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+:root{
+    --primary:#f97316;
+    --primary2:#fb923c;
+    --glass:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.15);
+    --text:#f8fafc;
+    --muted:#94a3b8;
+}
 
-        <h2 class="fw-bold">
-            <i class="bi bi-people-fill"></i>
-            Member Management
-        </h2>
+body{
+    background:
+        radial-gradient(circle at top left,#2d0d00 0%,transparent 30%),
+        radial-gradient(circle at bottom right,#311000 0%,transparent 30%),
+        #09090b;
+}
 
-        <a href="{% url 'add_member' %}" class="btn btn-primary">
-            <i class="bi bi-person-plus-fill"></i>
-            Add Member
-        </a>
+.member-section{
+    padding:120px 0 70px;
+}
+
+.glass-card{
+    background:var(--glass);
+    border:1px solid var(--border);
+    backdrop-filter:blur(18px);
+    border-radius:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.page-title{
+
+    color:white;
+    font-weight:700;
+    font-size:3rem;
+}
+
+.orange-text{
+
+    color:var(--primary);
+
+}
+
+.subtitle{
+
+    color:#b8c0cc;
+    font-size:17px;
+
+}
+
+.search-box{
+
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:18px;
+
+}
+
+.search-box input{
+
+    background:transparent;
+    border:none;
+    color:white;
+
+}
+
+.search-box input:focus{
+
+    outline:none;
+    box-shadow:none;
+    background:transparent;
+    color:white;
+
+}
+
+.search-box input::placeholder{
+
+    color:#9ca3af;
+
+}
+
+.search-btn{
+
+    background:linear-gradient(45deg,#f97316,#fb923c);
+    border:none;
+    color:white;
+    border-radius:15px;
+    padding:10px 25px;
+    font-weight:600;
+    transition:.3s;
+
+}
+
+.search-btn:hover{
+
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(249,115,22,.35);
+
+}
+
+.stat-card{
+
+    padding:30px;
+    text-align:center;
+    transition:.35s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.stat-icon{
+
+    width:70px;
+    height:70px;
+    margin:auto;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(45deg,#f97316,#fb923c);
+    font-size:28px;
+    color:white;
+
+}
+
+.stat-number{
+
+    color:white;
+    font-size:36px;
+    font-weight:700;
+    margin-top:20px;
+
+}
+
+.stat-title{
+
+    color:#94a3b8;
+
+}
+
+.add-btn{
+
+    background:linear-gradient(45deg,#f97316,#fb923c);
+    color:white;
+    border:none;
+    border-radius:15px;
+    padding:12px 28px;
+    font-weight:600;
+    transition:.3s;
+
+}
+
+.add-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.member-card{
+
+    margin-top:25px;
+    padding:25px;
+    transition:.35s;
+
+}
+
+.member-card:hover{
+
+    transform:translateY(-8px);
+    border-color:#f97316;
+
+}
+
+.avatar{
+
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:linear-gradient(45deg,#f97316,#fb923c);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+
+}
+
+.member-name{
+
+    color:white;
+    font-size:24px;
+    font-weight:700;
+
+}
+
+.member-info{
+
+    color:#a8b0bc;
+    margin-bottom:6px;
+
+}
+
+.badge-active{
+
+    background:#16a34a;
+    color:white;
+    padding:8px 18px;
+    border-radius:50px;
+
+}
+
+.badge-expired{
+
+    background:#dc2626;
+    color:white;
+    padding:8px 18px;
+    border-radius:50px;
+
+}
+
+.action-btn{
+
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:12px;
+    margin-left:8px;
+    transition:.3s;
+
+}
+
+.btn-view{
+
+    background:#2563eb;
+    color:white;
+
+}
+
+.btn-edit{
+
+    background:#f59e0b;
+    color:white;
+
+}
+
+.btn-delete{
+
+    background:#dc2626;
+    color:white;
+
+}
+
+.action-btn:hover{
+
+    transform:translateY(-4px);
+
+}
+
+</style>
+
+<section class="member-section">
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-5">
+
+<div>
+
+<h1 class="page-title">
+Members <span class="orange-text">Management</span>
+</h1>
+
+<p class="subtitle">
+Manage all gym members from one beautiful dashboard.
+</p>
+
+</div>
+
+<a href="{% url 'add_member' %}" class="btn add-btn">
+
+<i class="fa-solid fa-user-plus me-2"></i>
+
+Add Member
+
+</a>
+
+</div>
+
+<div class="glass-card p-4 mb-5">
+
+<form method="GET">
+
+<div class="row align-items-center">
+
+<div class="col-lg-10">
+
+<div class="search-box">
+
+<input
+type="text"
+name="search"
+class="form-control"
+placeholder="Search member by name, email or phone..."
+value="{{ request.GET.search }}">
+
+</div>
+
+</div>
+
+<div class="col-lg-2 mt-3 mt-lg-0">
+
+<button class="search-btn w-100">
+
+<i class="fa fa-search me-2"></i>
+
+Search
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+<div class="row g-4 mb-5">
+
+<div class="col-md-3">
+
+<div class="glass-card stat-card">
+
+<div class="stat-icon">
+
+<i class="fa-solid fa-users"></i>
+
+</div>
+
+<div class="stat-number">
+
+{{ total }}
+
+</div>
+
+<div class="stat-title">
+
+Total Members
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card stat-card">
+
+<div class="stat-icon">
+
+<i class="fa-solid fa-user-check"></i>
+
+</div>
+
+<div class="stat-number">
+
+{{ active }}
+
+</div>
+
+<div class="stat-title">
+
+Active
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card stat-card">
+
+<div class="stat-icon">
+
+<i class="fa-solid fa-user-xmark"></i>
+
+</div>
+
+<div class="stat-number">
+
+{{ expired }}
+
+</div>
+
+<div class="stat-title">
+
+Expired
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card stat-card">
+
+<div class="stat-icon">
+
+<i class="fa-solid fa-calendar-plus"></i>
+
+</div>
+
+<div class="stat-number">
+
+{{ new_members }}
+
+</div>
+
+<div class="stat-title">
+
+New This Month
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MEMBER CARDS START -->
+
+{% for member in members %}
+
+<div class="glass-card member-card">
+
+<div class="row align-items-center">
+
+<div class="col-lg-1">
+
+<div class="avatar">
+
+{{ member.name|first|upper }}
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="member-name">
+
+{{ member.name }}
+
+</div>
+
+<div class="member-info">
+
+<i class="fa-solid fa-envelope me-2"></i>
+
+{{ member.email }}
+
+</div>
+
+<div class="member-info">
+
+<i class="fa-solid fa-phone me-2"></i>
+
+{{ member.phone }}
+
+</div>
+
+</div>
+<div class="col-lg-3 mt-4 mt-lg-0">
+
+    <div class="member-info">
+
+        <i class="fa-solid fa-id-card me-2 text-warning"></i>
+
+        <strong class="text-white">Plan :</strong>
+
+        {{ member.membership_plan }}
 
     </div>
 
-    <!-- Search & Filter Card -->
-    <div class="card shadow border-0 mb-4">
+    <div class="member-info">
 
-        <div class="card-body">
+        <i class="fa-solid fa-calendar-days me-2 text-warning"></i>
 
-            <form method="GET">
+        <strong class="text-white">Joined :</strong>
 
-                <div class="row">
-
-                    <div class="col-md-5 mb-2">
-
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="search"
-                            placeholder="Search by Name, Email or Phone"
-                            value="{{ request.GET.search }}">
-
-                    </div>
-
-                    <div class="col-md-3 mb-2">
-
-                        <select
-                            class="form-select"
-                            name="status">
-
-                            <option value="">All Status</option>
-
-                            <option value="Active"
-                            {% if request.GET.status == "Active" %}
-                            selected
-                            {% endif %}>
-                            Active
-                            </option>
-
-                            <option value="Expired"
-                            {% if request.GET.status == "Expired" %}
-                            selected
-                            {% endif %}>
-                            Expired
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="col-md-2 mb-2">
-
-                        <button class="btn btn-success w-100">
-
-                            <i class="bi bi-search"></i>
-
-                            Search
-
-                        </button>
-
-                    </div>
-
-                    <div class="col-md-2 mb-2">
-
-                        <a href="{% url 'view_members' %}"
-                           class="btn btn-secondary w-100">
-
-                            Reset
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </form>
-
-        </div>
+        {{ member.joining_date }}
 
     </div>
 
-    <!-- Members Table -->
+    <div class="member-info">
 
-    <div class="card shadow border-0">
+        <i class="fa-solid fa-hourglass-half me-2 text-warning"></i>
 
-        <div class="card-header bg-dark text-white">
+        <strong class="text-white">Expires :</strong>
 
-            <h5 class="mb-0">
-                Members List
-            </h5>
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="table-responsive">
-
-                <table class="table table-bordered table-hover align-middle">
-
-                    <thead class="table-primary">
-
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>Name</th>
-
-                        <th>Email</th>
-
-                        <th>Phone</th>
-
-                        <th>Age</th>
-
-                        <th>Gender</th>
-
-                        <th>Plan</th>
-
-                        <th>Status</th>
-
-                        <th>Actions</th>
-
-                    </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                    {% for member in members %}
-
-                    <tr>
-
-                        <td>{{ member.id }}</td>
-
-                        <td>{{ member.name }}</td>
-
-                        <td>{{ member.email }}</td>
-
-                        <td>{{ member.phone }}</td>
-
-                        <td>{{ member.age }}</td>
-
-                        <td>{{ member.gender }}</td>
-
-                        <td>{{ member.membership_plan }}</td>
-
-                        <td>
-
-                            {% if member.membership_status == "Active" %}
-
-                            <span class="badge bg-success">
-
-                                Active
-
-                            </span>
-
-                            {% else %}
-
-                            <span class="badge bg-danger">
-
-                                Expired
-
-                            </span>
-
-                            {% endif %}
-
-                        </td>
-
-                        <td>
-
-                            <a href="{% url 'member_profile' member.id %}"
-                               class="btn btn-info btn-sm">
-
-                                <i class="bi bi-eye"></i>
-
-                            </a>
-
-                            <a href="{% url 'edit_member' member.id %}"
-                               class="btn btn-warning btn-sm">
-
-                                <i class="bi bi-pencil-square"></i>
-
-                            </a>
-
-                            <a href="{% url 'delete_member' member.id %}"
-                               class="btn btn-danger btn-sm"
-                               onclick="return confirm('Are you sure you want to delete this member?')">
-
-                                <i class="bi bi-trash"></i>
-
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-                    {% empty %}
-
-                    <tr>
-
-                        <td colspan="9" class="text-center text-muted">
-
-                            No Members Found
-
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
+        {{ member.expiry_date }}
 
     </div>
 
 </div>
+
+<div class="col-lg-2 mt-4 mt-lg-0 text-center">
+
+    {% if member.membership_status == "Active" %}
+
+        <span class="badge-active">
+
+            <i class="fa-solid fa-circle-check me-2"></i>
+
+            Active
+
+        </span>
+
+    {% else %}
+
+        <span class="badge-expired">
+
+            <i class="fa-solid fa-circle-xmark me-2"></i>
+
+            Expired
+
+        </span>
+
+    {% endif %}
+
+</div>
+
+<div class="col-lg-2 mt-4 mt-lg-0 text-end">
+
+    <a href="{% url 'member_profile' member.id %}">
+
+        <button class="action-btn btn-view">
+
+            <i class="fa-solid fa-eye"></i>
+
+        </button>
+
+    </a>
+
+    <a href="{% url 'edit_member' member.id %}">
+
+        <button class="action-btn btn-edit">
+
+            <i class="fa-solid fa-pen"></i>
+
+        </button>
+
+    </a>
+
+    <a href="{% url 'delete_member' member.id %}"
+       onclick="return confirm('Delete this member?')">
+
+        <button class="action-btn btn-delete">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+    </a>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="glass-card p-5 text-center">
+
+    <i class="fa-solid fa-users-slash fa-4x mb-4 text-warning"></i>
+
+    <h2 class="text-white">
+
+        No Members Found
+
+    </h2>
+
+    <p class="text-secondary">
+
+        There are currently no members matching your search.
+
+    </p>
+
+    <a href="{% url 'add_member' %}" class="btn add-btn mt-3">
+
+        <i class="fa-solid fa-user-plus me-2"></i>
+
+        Add First Member
+
+    </a>
+
+</div>
+
+{% endfor %}
+
+{% if members.has_other_pages %}
+
+<div class="d-flex justify-content-center mt-5">
+
+<nav>
+
+<ul class="pagination pagination-lg">
+
+{% if members.has_previous %}
+
+<li class="page-item">
+
+<a class="page-link bg-dark border-secondary text-white"
+href="?page={{ members.previous_page_number }}">
+
+Previous
+
+</a>
+
+</li>
+
+{% endif %}
+
+{% for i in members.paginator.page_range %}
+
+{% if members.number == i %}
+
+<li class="page-item active">
+
+<span class="page-link bg-warning border-warning">
+
+{{ i }}
+
+</span>
+
+</li>
+
+{% else %}
+
+<li class="page-item">
+
+<a class="page-link bg-dark border-secondary text-white"
+href="?page={{ i }}">
+
+{{ i }}
+
+</a>
+
+</li>
+
+{% endif %}
+
+{% endfor %}
+
+{% if members.has_next %}
+
+<li class="page-item">
+
+<a class="page-link bg-dark border-secondary text-white"
+href="?page={{ members.next_page_number }}">
+
+Next
+
+</a>
+
+</li>
+
+{% endif %}
+
+</ul>
+
+</nav>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</section>
 
 {% endblock %}

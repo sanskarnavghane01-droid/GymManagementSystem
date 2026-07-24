@@ -1,200 +1,570 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}
-Member Profile
-{% endblock %}
+{% block title %}Member Profile{% endblock %}
 
 {% block content %}
 
-<div class="container mt-5 mb-5">
+<style>
 
-    <div class="row justify-content-center">
+:root{
 
-        <div class="col-lg-8">
+--primary:#f97316;
+--primary2:#fb923c;
+--glass:rgba(255,255,255,.08);
+--border:rgba(255,255,255,.15);
+--text:#fff;
+--muted:#94a3b8;
 
-            <div class="card shadow-lg border-0">
+}
 
-                <!-- Header -->
-                <div class="card-header bg-primary text-white text-center">
+body{
 
-                    <h2>
-                        <i class="bi bi-person-circle"></i>
-                        Member Profile
-                    </h2>
+background:
+radial-gradient(circle at top left,#2c0d00 0%,transparent 30%),
+radial-gradient(circle at bottom right,#351000 0%,transparent 30%),
+#09090b;
 
-                </div>
+}
 
-                <div class="card-body">
+.profile-section{
 
-                    <!-- Avatar -->
-                    <div class="text-center mb-4">
+padding:120px 0 80px;
 
-                        <i class="bi bi-person-circle text-primary"
-                           style="font-size:100px;"></i>
+}
 
-                        <h3 class="mt-3">
-                            {{ member.name }}
-                        </h3>
+.glass{
 
-                        {% if member.membership_status == "Active" %}
+background:var(--glass);
+border:1px solid var(--border);
+backdrop-filter:blur(20px);
+border-radius:28px;
+box-shadow:0 25px 50px rgba(0,0,0,.45);
 
-                            <span class="badge bg-success fs-6">
-                                Active Member
-                            </span>
+}
 
-                        {% else %}
+.profile-card{
 
-                            <span class="badge bg-danger fs-6">
-                                Expired Member
-                            </span>
+padding:45px;
 
-                        {% endif %}
+}
 
-                    </div>
+.avatar{
 
-                    <hr>
+width:170px;
+height:170px;
+margin:auto;
+border-radius:50%;
+background:linear-gradient(135deg,#f97316,#fb923c);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:75px;
+font-weight:700;
+color:#fff;
+box-shadow:0 0 45px rgba(249,115,22,.45);
 
-                    <div class="row">
+}
 
-                        <div class="col-md-6 mb-3">
+.member-name{
 
-                            <label class="fw-bold">
-                                Email
-                            </label>
+font-size:38px;
+font-weight:700;
+color:white;
+margin-top:25px;
 
-                            <p class="form-control">
-                                {{ member.email }}
-                            </p>
+}
 
-                        </div>
+.member-email{
 
-                        <div class="col-md-6 mb-3">
+color:#94a3b8;
+font-size:18px;
 
-                            <label class="fw-bold">
-                                Phone Number
-                            </label>
+}
 
-                            <p class="form-control">
-                                {{ member.phone }}
-                            </p>
+.status{
 
-                        </div>
+display:inline-block;
+padding:10px 28px;
+border-radius:50px;
+font-weight:600;
+margin-top:18px;
 
-                    </div>
+}
 
-                    <div class="row">
+.active{
 
-                        <div class="col-md-6 mb-3">
+background:#16a34a;
+color:white;
 
-                            <label class="fw-bold">
-                                Age
-                            </label>
+}
 
-                            <p class="form-control">
-                                {{ member.age }}
-                            </p>
+.expired{
 
-                        </div>
+background:#dc2626;
+color:white;
 
-                        <div class="col-md-6 mb-3">
+}
 
-                            <label class="fw-bold">
-                                Gender
-                            </label>
+.info-card{
 
-                            <p class="form-control">
-                                {{ member.gender }}
-                            </p>
+padding:28px;
+height:100%;
+transition:.35s;
 
-                        </div>
+}
 
-                    </div>
+.info-card:hover{
 
-                    <div class="row">
+transform:translateY(-8px);
+border:1px solid #f97316;
 
-                        <div class="col-md-6 mb-3">
+}
 
-                            <label class="fw-bold">
-                                Membership Plan
-                            </label>
+.info-title{
 
-                            <p class="form-control">
-                                {{ member.membership_plan }}
-                            </p>
+font-size:14px;
+letter-spacing:1px;
+text-transform:uppercase;
+color:#94a3b8;
 
-                        </div>
+}
 
-                        <div class="col-md-6 mb-3">
+.info-value{
 
-                            <label class="fw-bold">
-                                Membership Status
-                            </label>
+margin-top:10px;
+font-size:23px;
+font-weight:600;
+color:white;
 
-                            <p class="form-control">
-                                {{ member.membership_status }}
-                            </p>
+}
 
-                        </div>
+.icon-box{
 
-                    </div>
+width:55px;
+height:55px;
+background:linear-gradient(135deg,#f97316,#fb923c);
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+color:white;
+margin-bottom:20px;
 
-                    <div class="row">
+}
 
-                        <div class="col-md-6 mb-3">
+.action-btn{
 
-                            <label class="fw-bold">
-                                Joining Date
-                            </label>
+padding:14px 35px;
+border-radius:15px;
+font-weight:600;
+border:none;
+transition:.3s;
 
-                            <p class="form-control">
-                                {{ member.joining_date }}
-                            </p>
+}
 
-                        </div>
+.edit-btn{
 
-                        <div class="col-md-6 mb-3">
+background:linear-gradient(135deg,#f97316,#fb923c);
+color:white;
 
-                            <label class="fw-bold">
-                                Expiry Date
-                            </label>
+}
 
-                            <p class="form-control">
-                                {{ member.expiry_date }}
-                            </p>
+.back-btn{
 
-                        </div>
+background:rgba(255,255,255,.08);
+color:white;
+border:1px solid rgba(255,255,255,.15);
 
-                    </div>
+}
 
-                </div>
+.action-btn:hover{
 
-                <!-- Footer -->
-                <div class="card-footer d-flex justify-content-between">
+transform:translateY(-4px);
 
-                    <a href="{% url 'view_members' %}"
-                       class="btn btn-secondary">
+}
 
-                        <i class="bi bi-arrow-left"></i>
-                        Back
+</style>
 
-                    </a>
+<section class="profile-section">
 
-                    <a href="{% url 'edit_member' member.id %}"
-                       class="btn btn-warning">
+<div class="container">
 
-                        <i class="bi bi-pencil-square"></i>
-                        Edit Member
+<div class="glass profile-card">
 
-                    </a>
+<div class="row align-items-center">
 
-                </div>
+<div class="col-lg-4 text-center">
 
-            </div>
+<div class="avatar">
 
-        </div>
-
-    </div>
+{{ member.name|first|upper }}
 
 </div>
+
+<h2 class="member-name">
+
+{{ member.name }}
+
+</h2>
+
+<p class="member-email">
+
+{{ member.email }}
+
+</p>
+
+{% if member.membership_status == "Active" %}
+
+<span class="status active">
+
+<i class="fa-solid fa-circle-check me-2"></i>
+
+Active Member
+
+</span>
+
+{% else %}
+
+<span class="status expired">
+
+<i class="fa-solid fa-circle-xmark me-2"></i>
+
+Expired Member
+
+</span>
+
+{% endif %}
+
+</div>
+
+<div class="col-lg-8">
+
+<div class="row g-4">
+
+<div class="col-md-6">
+
+<div class="glass info-card">
+
+<div class="icon-box">
+
+<i class="fa-solid fa-phone"></i>
+
+</div>
+
+<div class="info-title">
+
+Phone Number
+
+</div>
+
+<div class="info-value">
+
+{{ member.phone }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="glass info-card">
+
+<div class="icon-box">
+
+<i class="fa-solid fa-user"></i>
+
+</div>
+
+<div class="info-title">
+
+Gender
+
+</div>
+
+<div class="info-value">
+
+{{ member.gender }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="glass info-card">
+
+<div class="icon-box">
+
+<i class="fa-solid fa-cake-candles"></i>
+
+</div>
+
+<div class="info-title">
+
+Age
+
+</div>
+
+<div class="info-value">
+
+{{ member.age }}
+
+</div>
+
+</div>
+
+</div>
+<div class="col-md-6">
+
+<div class="glass info-card">
+
+<div class="icon-box">
+
+<i class="fa-solid fa-id-card"></i>
+
+</div>
+
+<div class="info-title">
+
+Membership Plan
+
+</div>
+
+<div class="info-value">
+
+{{ member.membership_plan }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="glass info-card">
+
+<div class="icon-box">
+
+<i class="fa-solid fa-calendar-days"></i>
+
+</div>
+
+<div class="info-title">
+
+Joining Date
+
+</div>
+
+<div class="info-value">
+
+{{ member.joining_date }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="glass info-card">
+
+<div class="icon-box">
+
+<i class="fa-solid fa-hourglass-end"></i>
+
+</div>
+
+<div class="info-title">
+
+Expiry Date
+
+</div>
+
+<div class="info-value">
+
+{{ member.expiry_date }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="glass info-card">
+
+<div class="icon-box">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+</div>
+
+<div class="info-title">
+
+Membership Status
+
+</div>
+
+<div class="info-value">
+
+{% if member.membership_status == "Active" %}
+
+<span class="badge bg-success fs-6">
+
+<i class="fa-solid fa-circle-check me-2"></i>
+
+Active
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger fs-6">
+
+<i class="fa-solid fa-circle-xmark me-2"></i>
+
+Expired
+
+</span>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr class="my-5" style="border-color:rgba(255,255,255,.08);">
+
+<div class="row text-center">
+
+<div class="col-md-4">
+
+<div class="glass info-card">
+
+<div class="icon-box mx-auto">
+
+<i class="fa-solid fa-dumbbell"></i>
+
+</div>
+
+<div class="info-title">
+
+Membership Plan
+
+</div>
+
+<div class="info-value">
+
+{{ member.membership_plan }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="glass info-card">
+
+<div class="icon-box mx-auto">
+
+<i class="fa-solid fa-clock"></i>
+
+</div>
+
+<div class="info-title">
+
+Days Remaining
+
+</div>
+
+<div class="info-value">
+
+{{ days_remaining }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="glass info-card">
+
+<div class="icon-box mx-auto">
+
+<i class="fa-solid fa-award"></i>
+
+</div>
+
+<div class="info-title">
+
+Member ID
+
+</div>
+
+<div class="info-value">
+
+#{{ member.id }}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="d-flex justify-content-center gap-3 mt-5">
+
+<a href="{% url 'view_members' %}" class="btn action-btn back-btn">
+
+<i class="fa-solid fa-arrow-left me-2"></i>
+
+Back
+
+</a>
+
+<a href="{% url 'edit_member' member.id %}" class="btn action-btn edit-btn">
+
+<i class="fa-solid fa-pen-to-square me-2"></i>
+
+Edit Profile
+
+</a>
+
+<a href="{% url 'delete_member' member.id %}"
+class="btn action-btn btn-danger"
+onclick="return confirm('Delete this member?')">
+
+<i class="fa-solid fa-trash me-2"></i>
+
+Delete
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 {% endblock %}
