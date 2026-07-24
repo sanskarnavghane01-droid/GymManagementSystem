@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from App import views
 
 urlpatterns = [
@@ -24,12 +23,17 @@ urlpatterns = [
 
     path('', views.home, name='home'),
 
-    path('members/', views.member_list, name="member_list"),
-
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
 
     path('trainer-dashboard/', views.trainer_dashboard, name='trainer_dashboard'),
     path('member-dashboard/', views.member_dashboard, name='member_dashboard'),
 
+    # Member Module
+    path('members/', views.view_members, name='view_members'),
+    path('add-member/', views.add_member, name='add_member'),
+    path('edit-member/<int:id>/', views.edit_member, name='edit_member'),
+    path('delete-member/<int:id>/', views.delete_member, name='delete_member'),
+    path('member/<int:id>/', views.member_profile, name='member_profile'),
+    path('member-stats/', views.member_stats, name='member_stats'),
 ]

@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+
+{% block title %}
+View Members
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <!-- Page Heading -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+            <i class="bi bi-people-fill"></i>
+            Member Management
+        </h2>
+
+        <a href="{% url 'add_member' %}" class="btn btn-primary">
+            <i class="bi bi-person-plus-fill"></i>
+            Add Member
+        </a>
+
+    </div>
+
+    <!-- Search & Filter Card -->
+    <div class="card shadow border-0 mb-4">
+
+        <div class="card-body">
+
+            <form method="GET">
+
+                <div class="row">
+
+                    <div class="col-md-5 mb-2">
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="search"
+                            placeholder="Search by Name, Email or Phone"
+                            value="{{ request.GET.search }}">
+
+                    </div>
+
+                    <div class="col-md-3 mb-2">
+
+                        <select
+                            class="form-select"
+                            name="status">
+
+                            <option value="">All Status</option>
+
+                            <option value="Active"
+                            {% if request.GET.status == "Active" %}
+                            selected
+                            {% endif %}>
+                            Active
+                            </option>
+
+                            <option value="Expired"
+                            {% if request.GET.status == "Expired" %}
+                            selected
+                            {% endif %}>
+                            Expired
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-2 mb-2">
+
+                        <button class="btn btn-success w-100">
+
+                            <i class="bi bi-search"></i>
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                    <div class="col-md-2 mb-2">
+
+                        <a href="{% url 'view_members' %}"
+                           class="btn btn-secondary w-100">
+
+                            Reset
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Members Table -->
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-dark text-white">
+
+            <h5 class="mb-0">
+                Members List
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover align-middle">
+
+                    <thead class="table-primary">
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th>Phone</th>
+
+                        <th>Age</th>
+
+                        <th>Gender</th>
+
+                        <th>Plan</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for member in members %}
+
+                    <tr>
+
+                        <td>{{ member.id }}</td>
+
+                        <td>{{ member.name }}</td>
+
+                        <td>{{ member.email }}</td>
+
+                        <td>{{ member.phone }}</td>
+
+                        <td>{{ member.age }}</td>
+
+                        <td>{{ member.gender }}</td>
+
+                        <td>{{ member.membership_plan }}</td>
+
+                        <td>
+
+                            {% if member.membership_status == "Active" %}
+
+                            <span class="badge bg-success">
+
+                                Active
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-danger">
+
+                                Expired
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{% url 'member_profile' member.id %}"
+                               class="btn btn-info btn-sm">
+
+                                <i class="bi bi-eye"></i>
+
+                            </a>
+
+                            <a href="{% url 'edit_member' member.id %}"
+                               class="btn btn-warning btn-sm">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                            </a>
+
+                            <a href="{% url 'delete_member' member.id %}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to delete this member?')">
+
+                                <i class="bi bi-trash"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="9" class="text-center text-muted">
+
+                            No Members Found
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
